@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentários - Completar a História</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+            background-color: #1A1A1A; /* Fundo escuro */
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1;
+        }
+        
+        .navbar a {
+            color: #f0e68c; /* Cor clara para os links */
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .navbar a:hover {
+            text-decoration: underline;
+            color: #f76c6c; /* Cor interativa no hover */
+        }
+        
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #f76c6c; /* Logo em uma cor vibrante */
+        }
+        
+        .content {
+            display: flex;
+            justify-content: space-between;
+            padding: 50px 20px;
+            position: relative;
+            z-index: 2; /* Garante que o conteúdo esteja acima do fundo */
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 1s; /* Animação de entrada */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .form-container,
+        .completed-stories {
+            width: 48%;
+            box-sizing: border-box;
+        }
+        
+        .form-container h1 {
+            color: #f76c6c; /* Título em uma cor vibrante */
+            text-align: center;
+        }
+        
+        .form-container form {
+            margin-bottom: 20px;
+        }
+        
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            color: #f0e68c; /* Cor clara para os rótulos */
+        }
+        
+        .form-container input[type="text"],
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #222; /* Fundo dos campos de input */
+            color: #fff;
+            transition: border 0.3s;
+        }
+        
+        .form-container input[type="text"]:focus,
+        .form-container textarea:focus {
+            border: 1px solid #f76c6c; /* Cor do border ao focar */
+        }
+        
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .form-container button:hover {
+            background-color: #0056b3; /* Cor mais escura no hover */
+        }
+        
+        .completed-stories {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-y: auto; /* Rolagem para longas listas */
+            max-height: 400px; /* Limitar altura da caixa */
+        }
+        
+        .completed-stories h2 {
+            margin-top: 0;
+            color: #f76c6c; /* Título em cor vibrante */
+        }
+        
+        .completed-stories .story {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #444;
+            border-radius: 4px;
+            background-color: #444; /* Fundo para as histórias */
+            transition: background-color 0.3s;
+        }
+        
+        .completed-stories .story:hover {
+            background-color: #555; /* Destaque na história ao passar o mouse */
+        }
+        
+        .completed-stories .story:last-child {
+            border-bottom: none;
+        }
+
+        /* Estilo para a história inicial */
+        .initial-story {
+            font-size: 18px;
+            color: #f0e68c; /* Cor da história */
+            background-color: #222; /* Fundo da história */
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: justify; /* Justifica o texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">P☀️ETE-se</div>
+        <div>
+            <a href="index.html">PÁGINA PRINCIPAL</a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="form-container">
+            <h1>Complete a História</h1>
+            <div class="initial-story">
+                <!-- Trecho do conto de Machado de Assis -->
+                "E se no meio do caminho, encontrasse alguém que lhe dissesse que a verdade é um conceito relativo, e que todos têm o direito de ver a vida de uma maneira única? Assim, ele se perguntou: qual seria a essência do que estava buscando? Enquanto isso, na cidade, as pessoas..."
+            </div>
+            <form id="comment-form">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="comment">Comentário:</label>
+                <textarea id="comment" name="comment" rows="4" required></textarea>
+
+                <button type="submit">Enviar Comentário</button>
+            </form>
+        </div>
+        <div class="completed-stories">
+            <h2>Histórias Completas:</h2>
+            <div id="story-list">
+                <!-- As histórias completas serão adicionadas aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('comment-form');
+        const storyList = document.getElementById('story-list');
+
+        // Função para buscar comentários do backend
+        const fetchComments = async () => {
+            const response = await fetch('http://localhost:3000/comments');
+            const comments = await response.json();
+            comments.forEach(comment => {
+                addStory(comment.name, comment.comment);
+            });
+        };
+
+        // Envio do formulário
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+            const name = document.getElementById('name').value;
+            const comment = document.getElementById('comment').value;
+
+            // Envia o comentário para o backend
+            await fetch('http://localhost:3000/comments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, comment })
+            });
+
+            // Adiciona a história ao DOM
+            addStory(name, comment);
+
+            // Limpa o formulário
+            form.reset();
+        });
+
+        function addStory(name, comment) {
+            const storyDiv = document.createElement('div');
+            storyDiv.classList.add('story');
+            storyDiv.innerHTML = `<strong>${name}:</strong> ${comment}`;
+            storyList.appendChild(storyDiv);
+        }
+
+        // Carregar comentários ao inicializar
+        fetchComments();
+    </script>
+</body>
+</html>
